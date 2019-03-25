@@ -1,2 +1,1 @@
-# polysimulation
-for NPC simulation
+# Polysimulation
