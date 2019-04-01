@@ -2,10 +2,11 @@
 clear ; close all; clc;
 %% Set initial parameters for simulation
 root=zeros(20);
-leaf=zeros(1,size(root,2))
-tree=struct('f',0,'rs',0,'ls',0,'v',0,'tag',0)
+leaf=zeros(1,size(root,2));
+tree=struct('f',0,'rs',0,'ls',0,'v',0,'tag',0);
 cnt=2*size(root,2);
-Dead=zeros(1,size(root,2))
+Dead=zeros(1,size(root,2));
+t=0;
 originalNPCnum=20*size(root,2);
 NPC_num=originalNPCnum;
 NCA_num=0;
@@ -30,20 +31,21 @@ end
 conversion=0;
 Params= zeros(5,20000);
 ed=0.8;
+count=1;
 while conversion<=ed
     root_num = sum (Dead~=0);
-    if NPC_num+NCA_num+root_num==ceil((originalNPCnum+size(root,2)))/2
-        duplicate();
-    end
-    r1=unidrnd(0,1);
-    r2=unidrnd(0,1);
+   % if NPC_num+NCA_num+root_num==ceil((originalNPCnum+size(root,2)))/2
+    %    duplicate();
+    %end
+    r1=rand(1);
+    r2=rand(1);
     a1=1;
-    a2=1;
-    a3=1;
-    a4=1;
-    a5=1;
-    a6=1;
-    a0=a1+a2+a3+a4+a5+a6;
+    a2=a1+1;
+    a3=a2+1;
+    a4=a3+1;
+    a5=a4+1;
+    a6=a5+1;
+    a0=a6;
     dt = -1/a0*log(r1);
     reactType=r2*a0;
     pos = find(Dead==0);
@@ -52,7 +54,7 @@ while conversion<=ed
     tmp_1=0;
     while tree(tmp).ls~=0
         tmp_1=tmp_1+tree(tmp).v;
-        tmp=tree(tmp).v;
+        tmp=tree(tmp).ls;
     end
     randnum=unidrnd(tmp_1);
     if reactType>0&&reactType<=a1
@@ -72,18 +74,26 @@ while conversion<=ed
         Ac_num=Ac_num-1;
     end
     if reactType>a3&&reactType<=a4
-        [root,leaf,tree]=AddNPC(root,leaf,tree,pos(randroot));
+        [root,tree]=AddNPC(root,leaf,tree,pos(randroot));
         NCA_num=NCA_num-1;
     end
     if reactType>a4&&reactType<=a5
-        Suicide();
+        %Suicide();
         
     end
     if reactType>a5&&reactType<=a6
        rootB=unidrnd(length(pos));
        [root,leaf,tree,Dead,cnt]=Branch(root,leaf,tree,Dead,cnt,pos(randroot),pos(rootB),randnum);
     end
-	Params(:,ed) =  [conversion;Mn;Mw;B;t];
+   
+	
     conversion = (originalNPCnum - NPC_num-NCA_num) / originalNPCnum;
     t=t+dt;
+    [Mw,Mv,B]=retrieve(root,tree,Dead);
+    Params(:,count) =  [conversion;Mw;Mv;B;t];
+    count=count+1;
+    display(conversion);
+    display(NPC_num);
+    display(t);
+    display(NCA_num);
 end

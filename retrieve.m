@@ -1,11 +1,14 @@
 %NPC 234 N87
 
-function [Mw,Mv,B]=retrieve(root)
+function [Mw,Mv,B]=retrieve(root,tree,Dead)
 pos=find(Dead==0);
 polynum=0;
 totalmass=0;
 Mw=0;
 Mv=0;
+D=0;
+T=0;
+L=0;
 for i=1:length(pos)
     if root(pos(i))~=0
         polynum=polynum+1;
@@ -18,6 +21,10 @@ end
 Mv=totalmass/polynum;
 
 for i=1:length(pos)
-    [D,T,L]=[D,T,L]+Ds(root,pos(i),0);
+    [a,b,c]=Ds(root,tree,pos(i),0);
+    D=D+a;
+    T=T+b;
+    L=L+c;
 end
+B=(D+T)/(D+T+L);
 end

@@ -1,23 +1,39 @@
-function [D,T,L]=Ds(root,Node,Tag);
+function [D,T,L]=Ds(root,tree,Node,Tag)
+D=0;
+T=0;
+L=0;
+DD=0;
+TT=0;
+LL=0;
 if Node==0
-    [D,T,L]=0;
+D=0;
+T=0;
+L=0;
 else
 if Tag==0
-    DD=root(Node);
+    DD=tree(Node).v;
 else
-    LL=root(Node);
+    LL=tree(Node).v;
 end
-if root(Node).ls==0&&Tag==0
+if tree(Node).ls==0&&Tag==0
     TT=1;
 end
-if root(Node).f==0&&Tag==1
+if tree(Node).f==0&&Tag==1
     TT=1;
 end
 if(Tag==1)
-    [D,T,L]=[DD,TT,LL]+Ds(root,root(Node).f,Tag)+Ds(root,root(Node).rs,1);
+    [a,b,c]=Ds(root,tree,tree(Node).f,Tag);
+    [d,e,f]=Ds(root,tree,tree(Node).rs,1);
+    D=a+d+DD;
+    T=b+e+TT;
+    L=c+f+LL;
 end
 if(Tag==0)
-    [D,T,L]=[DD,TT,LL]+Ds(root,root(Node).ls,Tag)+Ds(root,root(Node).rs,1);
+    [a,b,c]=Ds(root,tree,tree(Node).ls,Tag);
+    [d,e,f]=Ds(root,tree,tree(Node).rs,1);
+    D=a+d+DD;
+    T=b+e+TT;
+    L=c+f+LL;
 end
 end
 end
