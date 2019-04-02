@@ -24,6 +24,7 @@ if tree(Node).f==0&&Tag==1
 end
 if(Tag==1)
     [a,b,c]=Ds(root,tree,tree(Node).f,Tag);
+    
     [d,e,f]=Ds(root,tree,tree(Node).rs,1);
     D=a+d+DD;
     T=b+e+TT;
