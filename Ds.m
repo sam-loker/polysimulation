@@ -5,6 +5,7 @@ L=0;
 DD=0;
 TT=0;
 LL=0;
+%display(Node);
 if Node==0
 D=0;
 T=0;

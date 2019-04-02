@@ -33,18 +33,18 @@ Params= zeros(5,20000);
 ed=0.8;
 count=1;
 while conversion<=ed
-    root_num = sum (Dead~=0);
+    root_num = sum (Dead==0);
    % if NPC_num+NCA_num+root_num==ceil((originalNPCnum+size(root,2)))/2
     %    duplicate();
     %end
     r1=rand(1);
     r2=rand(1);
-    a1=1;
-    a2=a1+1;
-    a3=a2+1;
-    a4=a3+1;
-    a5=a4+1;
-    a6=a5+1;
+    a1=NPC_num*k1*root_num;
+    a2=a1+AcH_num*k2*root_num;
+    a3=a2+Ac_num*k3*(20-root_num);
+    a4=a3+NCA_num*k4*root_num;
+    a5=a4+k5*root_num;
+    a6=a5+k6*root_num*root_num;
     a0=a6;
     dt = -1/a0*log(r1);
     reactType=r2*a0;
