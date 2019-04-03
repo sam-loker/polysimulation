@@ -12,9 +12,9 @@ T=0;
 L=0;
 else
 if Tag==0
-    DD=tree(Node).v;
-else
     LL=tree(Node).v;
+else
+    DD=tree(Node).v;
 end
 if tree(Node).ls==0&&Tag==0
     TT=1;

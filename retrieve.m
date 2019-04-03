@@ -44,6 +44,5 @@ for i=1:length(poslock)
     L=L+c;
 end
 B=(D+T)/(D+T+L);
-display(T);
 
 end
