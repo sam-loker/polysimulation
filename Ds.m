@@ -1,4 +1,4 @@
-function [D,T,L]=Ds(root,tree,Node,Tag)
+function [D,T,L]=Ds(root,tree,Node,Tag)%%ÉîËÑÕû¿ÃÊ÷
 D=0;
 T=0;
 L=0;
